@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MERAKI SPA | Cabello, Pestañas & Uñas</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        meraki: {
+                            bg: '#FAF7F2',       /* Crema sutil elegante */
+                            card: '#FFFFFF',     /* Blanco puro */
+                            dark: '#2A2421',     /* Marrón oscuro profundo */
+                            muted: '#7A6B63',    /* Neutro cálido medio */
+                            soft: '#EFEAE1',     /* Beige suave para bordes */
+                            rose: '#D29B85',     /* Terracota / Rosa vieja elegante */
+                            gold: '#C59A4E'      /* Acento dorado */
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Cormorant Garamond', 'Georgia', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #FAF7F2;
+            color: #2A2421;
+        }
+        .glass-nav {
+            background: rgba(250, 247, 242, 0.92);
+            backdrop-filter: blur(12px);
+        }
+        .menu-dots {
+            border-bottom: 2px dotted #C59A4E;
+            flex-grow: 1;
+            margin: 0 12px;
+            opacity: 0.35;
+        }
+        .gold-glow {
+            box-shadow: 0 10px 30px -10px rgba(197, 154, 78, 0.25);
+        }
+        .btn-meraki {
+            background-color: #2A2421;
+            color: #FAF7F2;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-meraki:hover {
+            background-color: #7A6B63;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(42, 36, 33, 0.2);
+        }
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .btn-whatsapp:hover {
+            background-color: #1EBE5B;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.25);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-meraki-rose selection:text-white">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-meraki-dark text-meraki-bg text-xs py-2 px-4 text-center tracking-widest font-light flex items-center justify-center space-x-4">
+        <span>✨ MERAKI SPA — Amor & Pasión por tu Imagen</span>
+        <span class="hidden sm:inline">•</span>
+        <a href="https://wa.me/584167885454" target="_blank" class="hidden sm:inline font-semibold hover:text-meraki-rose transition-colors">
+            <i class="fa-brands fa-whatsapp mr-1"></i> 0416-7885454
+        </a>
+    </div>
+
+    <!-- NAVBAR -->
+    <header class="sticky top-0 z-40 glass-nav border-b border-meraki-soft">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20 sm:h-24">
+                
+                <!-- Brand Logo -->
+                <a href="#" class="flex flex-col items-center group">
+                    <span class="font-serif text-3xl sm:text-4xl font-bold tracking-[0.2em] text-meraki-dark uppercase">MERAKI</span>
+                    <div class="flex items-center space-x-2 w-full justify-center -mt-1">
+                        <span class="h-[1px] w-5 bg-meraki-dark opacity-40"></span>
+                        <span class="text-[10px] uppercase tracking-[0.4em] text-meraki-muted font-semibold">S P A</span>
+                        <span class="h-[1px] w-5 bg-meraki-dark opacity-40"></span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center space-x-8 text-xs uppercase tracking-widest font-bold text-meraki-dark">
+                    <a href="#inicio" class="hover:text-meraki-rose transition-colors">Inicio</a>
+                    <a href="#servicios" class="hover:text-meraki-rose transition-colors">Servicios & Precios</a>
+                    <a href="#galeria" class="hover:text-meraki-rose transition-colors">Galería</a>
+                    <a href="#reserva" class="hover:text-meraki-rose transition-colors">Reserva Online</a>
+                    <a href="#contacto" class="hover:text-meraki-rose transition-colors">Ubicación</a>
+                </nav>
+
+                <!-- Action Button -->
+                <div class="flex items-center space-x-3">
+                    <button onclick="openBookingModal()" class="hidden sm:inline-flex btn-meraki text-xs font-semibold uppercase tracking-wider px-6 py-3 rounded-full items-center space-x-2">
+                        <i class="fa-regular fa-calendar-check"></i>
+                        <span>Agendar Cita</span>
+                    </button>
+                    <a href="https://wa.me/584167885454" target="_blank" class="p-2.5 sm:p-3 rounded-full bg-green-500/10 text-green-600 hover:bg-green-500 hover:text-white transition-all text-lg">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                    <button id="mobile-menu-btn" class="md:hidden text-meraki-dark p-2 text-xl focus:outline-none">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-meraki-card border-b border-meraki-soft px-6 py-6 space-y-4">
+            <a href="#inicio" class="mobile-link block text-sm uppercase tracking-wider font-semibold text-meraki-dark">Inicio</a>
+            <a href="#servicios" class="mobile-link block text-sm uppercase tracking-wider font-semibold text-meraki-dark">Servicios & Precios</a>
+            <a href="#galeria" class="mobile-link block text-sm uppercase tracking-wider font-semibold text-meraki-dark">Galería</a>
+            <a href="#reserva" class="mobile-link block text-sm uppercase tracking-wider font-semibold text-meraki-dark">Reserva Online</a>
+            <a href="#contacto" class="mobile-link block text-sm uppercase tracking-wider font-semibold text-meraki-dark">Contacto</a>
+            <button onclick="openBookingModal()" class="w-full btn-meraki text-xs font-semibold uppercase tracking-wider py-3.5 rounded-full flex items-center justify-center space-x-2">
+                <i class="fa-regular fa-calendar-check"></i>
+                <span>Agendar Cita Ahora</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="inicio" class="relative pt-12 pb-20 lg:pt-20 lg:pb-28 px-4 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <div class="lg:col-span-7 text-center lg:text-left">
+                <div class="inline-flex items-center space-x-2 bg-meraki-card border border-meraki-soft px-4 py-1.5 rounded-full mb-6 shadow-sm">
+                    <i class="fa-solid fa-heart text-meraki-rose text-xs"></i>
+                    <span class="text-xs uppercase tracking-widest text-meraki-muted font-semibold">Salón & Spa Especializado</span>
+                </div>
+
+                <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-meraki-dark leading-[1.15] mb-6">
+                    Resalta tu belleza natural con <span class="italic font-normal text-meraki-rose">alma y estilo</span>
+                </h1>
+
+                <p class="text-meraki-muted text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 mb-8 font-light leading-relaxed">
+                    Experiencia premium en cuidado capilar, extensiones de pestañas y manicura. Conoce nuestras promociones exclusivas en combos para cabello y agenda tu momento de consentimiento personal.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                    <a href="#servicios" class="w-full sm:w-auto btn-meraki text-xs uppercase tracking-widest font-bold px-8 py-4 rounded-full text-center">
+                        Explorar Precios & Menú
+                    </a>
+                    <button onclick="openBookingModal()" class="w-full sm:w-auto bg-meraki-card hover:bg-meraki-soft border border-meraki-dark/20 text-meraki-dark font-bold text-xs uppercase tracking-widest px-8 py-4 rounded-full text-center transition-all">
+                        Reservar una Cita
+                    </button>
+                </div>
+
+                <!-- Fast Info Highlights -->
+                <div class="mt-12 pt-8 border-t border-meraki-soft grid grid-cols-3 gap-4 text-center lg:text-left">
+                    <div>
+                        <span class="block font-serif text-2xl sm:text-3xl font-bold text-meraki-dark">100%</span>
+                        <span class="text-[11px] uppercase tracking-wider text-meraki-muted font-medium">Atención Personalizada</span>
+                    </div>
+                    <div>
+                        <span class="block font-serif text-2xl sm:text-3xl font-bold text-meraki-dark">Promos</span>
+                        <span class="text-[11px] uppercase tracking-wider text-meraki-muted font-medium">Desde $15 (5 en 1)</span>
+                    </div>
+                    <div>
+                        <span class="block font-serif text-2xl sm:text-3xl font-bold text-meraki-dark">Directo</span>
+                        <span class="text-[11px] uppercase tracking-wider text-meraki-muted font-medium">WhatsApp 0416-7885454</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Image Banner Grid -->
+            <div class="lg:col-span-5 relative">
+                <div class="relative mx-auto max-w-md lg:max-w-none">
+                    <div class="absolute -top-4 -left-4 w-72 h-72 bg-meraki-rose/20 rounded-full blur-3xl"></div>
+                    <div class="relative bg-meraki-card p-3 rounded-3xl border border-meraki-soft shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=1000&q=80" 
+                             alt="Meraki Spa Hair Styling" 
+                             class="w-full h-[420px] object-cover rounded-2xl">
+                        
+                        <div class="absolute -bottom-6 -left-6 bg-meraki-card p-4 rounded-2xl border border-meraki-soft shadow-lg hidden sm:flex items-center space-x-3">
+                            <div class="w-12 h-12 rounded-full bg-meraki-bg flex items-center justify-center text-meraki-gold text-xl">
+                                <i class="fa-solid fa-scissors"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-xs uppercase tracking-wider text-meraki-dark">Promoción Cabello</h4>
+                                <p class="text-[11px] text-meraki-muted">Combo 5 en 1 desde $15</p>
+                            </div>
+                        </div>
+
+                        <a href="https://instagram.com/Merakispa_gc" target="_blank" 
+                           class="absolute -top-4 -right-4 bg-meraki-dark text-meraki-bg px-4 py-2 rounded-full text-xs font-semibold flex items-center space-x-2 shadow-md hover:bg-meraki-rose transition-colors">
+                            <i class="fa-brands fa-instagram"></i>
+                            <span>@Merakispa_gc</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- TABBED SERVICES & OFFICIAL PRICES SECTION -->
+    <section id="servicios" class="py-20 bg-meraki-card border-y border-meraki-soft">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="font-serif text-3xl sm:text-4xl font-bold tracking-[0.2em] text-meraki-dark uppercase block">MERAKI</span>
+                <span class="text-xs uppercase tracking-[0.4em] text-meraki-muted font-semibold block mb-2">S P A</span>
+                <h2 class="font-serif text-2xl sm:text-3xl text-meraki-dark italic">Menú de Servicios & Precios</h2>
+                <div class="flex items-center justify-center space-x-3 mt-3">
+                    <span class="h-[1px] w-12 bg-meraki-dark/30"></span>
+                    <i class="fa-solid fa-heart text-meraki-dark text-xs"></i>
+                    <span class="h-[1px] w-12 bg-meraki-dark/30"></span>
+                </div>
+            </div>
+
+            <!-- Tabs Header -->
+            <div class="flex justify-center mb-10 overflow-x-auto pb-2">
+                <div class="inline-flex p-1.5 rounded-full bg-meraki-bg border border-meraki-soft space-x-2">
+                    <button id="btn-tab-cabello" onclick="switchCategory('cabello')" class="cat-tab active px-6 py-3 rounded-full text-xs uppercase tracking-wider font-bold transition-all bg-meraki-dark text-meraki-bg shadow-sm">
+                        <i class="fa-solid fa-scissors mr-1.5"></i> Servicios de Cabello
+                    </button>
+                    <button id="btn-tab-pestanas" onclick="switchCategory('pestanas')" class="cat-tab px-6 py-3 rounded-full text-xs uppercase tracking-wider font-bold text-meraki-muted hover:text-meraki-dark transition-all">
+                        <i class="fa-solid fa-eye mr-1.5"></i> Pestañas & Cejas
+                    </button>
+                    <button id="btn-tab-unas" onclick="switchCategory('unas')" class="cat-tab px-6 py-3 rounded-full text-xs uppercase tracking-wider font-bold text-meraki-muted hover:text-meraki-dark transition-all">
+                        <i class="fa-solid fa-hand-sparkles mr-1.5"></i> Uñas & Manicura
+                    </button>
+                </div>
+            </div>
+
+            <!-- CATEGORY 1: CABELLO (Exact Pricing from Flyer) -->
+            <div id="cat-cabello" class="category-content max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <!-- Box 1: Promociones 5 en 1 -->
+                    <div class="bg-meraki-bg p-6 sm:p-8 rounded-3xl border border-meraki-gold/40 relative shadow-sm hover:shadow-md transition-shadow">
+                        <div class="absolute -top-3 right-6 bg-meraki-gold text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full shadow-sm">
+                            ★ Combo Estrella
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold uppercase tracking-wider text-meraki-dark text-center mb-1">PROMOCIONES</h3>
+                        <p class="text-xs text-meraki-muted text-center italic mb-6">
+                            (Secado + Planchado + Lavado + Limpieza de puntas + Hidratación)
+                        </p>
+
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold text-meraki-dark text-sm sm:text-base">Cabello Corto</span>
+                                <span class="menu-dots"></span>
+                                <span class="font-serif font-bold text-meraki-dark text-xl">$15</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold text-meraki-dark text-sm sm:text-base">Cabello Mediano</span>
+                                <span class="menu-dots"></span>
+                                <span class="font-serif font-bold text-meraki-dark text-xl">$18</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold text-meraki-dark text-sm sm:text-base">Cabello Largo</span>
+                                <span class="menu-dots"></span>
+                                <span class="font-serif font-bold text-meraki-dark text-xl">$22</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold text-meraki-dark text-sm sm:text-base">Cabello Extra Largo</span>
+                                <span class="menu-dots"></span>
+                                <span class="font-serif font-bold text-meraki-dark text-xl">$25</span>
+                            </div>
+                        </div>
+
+                        <button onclick="selectServiceForBooking('Promo Cabello')" class="w-full mt-6 btn-meraki py-3 rounded-xl text-xs font-bold uppercase tracking-wider">
+                            Reservar Esta Promo
+                        </button>
+                    </div>
+
+                    <!-- Box 2: Secado + Planchado + Lavado + Limpieza -->
+                    <div class="bg-meraki-bg p-6 sm:p-8 rounded-3xl border border-meraki-soft shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="font-serif text-lg font-bold uppercase tracking-wider text-meraki-dark text-center mb-1">
+                            SECADO + PLANCHADO + LAVADO + LIMPIEZA DE PUNTA
+                        </h3>
+                        <p class="text-xs text-meraki-muted text-center italic mb-6">Mantenimiento y brillo esencial</p>
+
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold text-meraki-dark text-sm sm:text-base">Cabello Corto</span>
+                                <span class="menu-dots"></span>
+                                <span class="font-serif font-bold text-meraki-dark text-xl">$8</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold text-meraki-dark text-sm sm:text-base">Cabello Mediano</span>
+                                <span class="menu-dots"></span>
+                                <span class="font-serif font-bold text-meraki-dark text-xl">$10</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold text-meraki-dark text-sm sm:text-base">Cabello Largo</span>
+                                <span class="menu-dots"></span>
+                                <span class="font-serif font-bold text-meraki-dark text-xl">$15</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold text-meraki-dark text-sm sm:text-base">Cabello Extra Largo</span>
+                                <span class="menu-dots"></span>
+                                <span class="font-serif font-bold text-meraki-dark text-xl">$18</span>
+                            </div>
+                        </div>
+
+                        <button onclick="selectServiceForBooking('Secado + Planchado + Lavado')" class="w-full mt-6 bg-white border border-meraki-dark/20 text-meraki-dark py-3 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-meraki-soft transition-colors">
+                            Reservar Servicio
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- Additional Hair Services (Alisados, Cortes, Elaborados) -->
+                <div class="mt-8 bg-meraki-bg p-6 sm:p-8 rounded-3xl border border-meraki-soft">
+                    <h3 class="font-serif text-xl font-bold uppercase tracking-wider text-meraki-dark text-center mb-6">Tratamientos & Estilismo</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white p-5 rounded-2xl border border-meraki-soft">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="font-bold text-meraki-dark text-sm uppercase">ALISADOS</h4>
+                                <span class="font-serif font-bold text-meraki-dark">$25+</span>
+                            </div>
+                            <p class="text-xs text-meraki-muted mb-3">Keramix / Nanoplastia profesional para brillo de espejo.</p>
+                            <span class="text-[11px] font-semibold text-meraki-rose">A partir de $25</span>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-meraki-soft">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="font-bold text-meraki-dark text-sm uppercase">CORTES</h4>
+                                <span class="font-serif font-bold text-meraki-dark">$5+</span>
+                            </div>
+                            <p class="text-xs text-meraki-muted mb-3">Corte de puntas, cambio de look y diseño adaptado.</p>
+                            <span class="text-[11px] font-semibold text-meraki-rose">A partir de $5</span>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-meraki-soft">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="font-bold text-meraki-dark text-sm uppercase">ELABORADOS</h4>
+                                <span class="font-serif font-bold text-meraki-dark">$8+</span>
+                            </div>
+                            <p class="text-xs text-meraki-muted mb-3">Peinados elaborados para eventos especiales y fotos.</p>
+                            <span class="text-[11px] font-semibold text-meraki-rose">A partir de $8</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CATEGORY 2: PESTAÑAS Y CEJAS -->
+            <div id="cat-pestanas" class="category-content hidden max-w-4xl mx-auto">
+                <div class="bg-meraki-bg p-6 sm:p-10 rounded-3xl border border-meraki-soft">
+                    <div class="text-center mb-8">
+                        <h3 class="font-serif text-2xl font-bold uppercase tracking-widest text-meraki-dark">Servicios de Pestañas & Visagismo</h3>
+                        <p class="text-xs text-meraki-muted italic mt-1">Especialistas en enmarcar tu mirada de forma armónica</p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="flex items-center justify-between p-4 bg-white rounded-2xl border border-meraki-soft">
+                            <div>
+                                <h4 class="font-bold text-meraki-dark text-sm sm:text-base uppercase">Pestañas Punto a Punto</h4>
+                                <p class="text-xs text-meraki-muted">Efecto volumen personalizable con acabado natural</p>
+                            </div>
+                            <span class="font-serif font-bold text-meraki-dark text-xl sm:text-2xl">$12</span>
+                        </div>
+
+                        <div class="flex items-center justify-between p-4 bg-white rounded-2xl border border-meraki-soft">
+                            <div>
+                                <h4 class="font-bold text-meraki-dark text-sm sm:text-base uppercase">Pestañas Pelo a Pelo (Técnica Clásica)</h4>
+                                <p class="text-xs text-meraki-muted">Extensión individual para máxima elegancia</p>
+                            </div>
+                            <span class="font-serif font-bold text-meraki-dark text-xl sm:text-2xl">$20</span>
+                        </div>
+
+                        <div class="flex items-center justify-between p-4 bg-white rounded-2xl border border-meraki-soft">
+                            <div>
+                                <h4 class="font-bold text-meraki-dark text-sm sm:text-base uppercase">Lifting de Pestañas + Tinte</h4>
+                                <p class="text-xs text-meraki-muted">Curvatura natural con tratamiento de hidratación</p>
+                            </div>
+                            <span class="font-serif font-bold text-meraki-dark text-xl sm:text-2xl">$15</span>
+                        </div>
+
+                        <div class="flex items-center justify-between p-4 bg-white rounded-2xl border border-meraki-soft">
+                            <div>
+                                <h4 class="font-bold text-meraki-dark text-sm sm:text-base uppercase">Diseño & Depilación de Cejas</h4>
+                                <p class="text-xs text-meraki-muted">Visagismo según las facciones de tu rostro</p>
+                            </div>
+                            <span class="font-serif font-bold text-meraki-dark text-xl sm:text-2xl">$6</span>
+                        </div>
+
+                        <div class="flex items-center justify-between p-4 bg-white rounded-2xl border border-meraki-soft">
+                            <div>
+                                <h4 class="font-bold text-meraki-dark text-sm sm:text-base uppercase">Pigmentación de Cejas (Henna)</h4>
+                                <p class="text-xs text-meraki-muted">Sombra semipermanente definida</p>
+                            </div>
+                            <span class="font-serif font-bold text-meraki-dark text-xl sm:text-2xl">$8</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 text-center">
+                        <button onclick="selectServiceForBooking('Pestañas / Cejas')" class="btn-meraki px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-wider">
+                            Reservar Cita de Pestañas
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CATEGORY 3: UÑAS Y MANICURA -->
+            <div id="cat-unas" class="category-content hidden max-w-4xl mx-auto">
+                <div class="bg-meraki-bg p-6 sm:p-10 rounded-3xl border border-meraki-soft">
+                    <div class="text-center mb-8">
+                        <h3 class="font-serif text-2xl font-bold uppercase tracking-widest text-meraki-dark">Servicios de Uñas & Spa de Manos</h3>
+                        <p class="text-xs text-meraki-muted italic mt-1">Cuidado impecable para tus manos y pies</p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="flex items-center justify-between p-4 bg-white rounded-2xl border border-meraki-soft">
+                            <div>
+                                <h4 class="font-bold text-meraki-dark text-sm sm:text-base uppercase">Manicura Clínica / Tradicional</h4>
+                                <p class="text-xs text-meraki-muted">Limpieza de cutículas, exfoliación e hidratación</p>
+                            </div>
+                            <span class="font-serif font-bold text-meraki-dark text-xl sm:text-2xl">$6</span>
+                        </div>
+
+                        <div class="flex items-center justify-between p-4 bg-white rounded-2xl border border-meraki-soft">
+                            <div>
+                                <h4 class="font-bold text-meraki-dark text-sm sm:text-base uppercase">Esmaltado Semipermanente</h4>
+                                <p class="text-xs text-meraki-muted">Manicura rusa con acabado en gel de larga duración</p>
+                            </div>
+                            <span class="font-serif font-bold text-meraki-dark text-xl sm:text-2xl">$12</span>
+                        </div>
+
+                        <div class="flex items-center justify-between p-4 bg-white rounded-2xl border border-meraki-soft">
+                            <div>
+                                <h4 class="font-bold text-meraki-dark text-sm sm:text-base uppercase">Sistemas Acrílicos / Soft Gel</h4>
+                                <p class="text-xs text-meraki-muted">Esculpido profesional con el largo a tu elección</p>
+                            </div>
+                            <span class="font-serif font-bold text-meraki-dark text-xl sm:text-2xl">$20+</span>
+                        </div>
+
+                        <div class="flex items-center justify-between p-4 bg-white rounded-2xl border border-meraki-soft">
+                            <div>
+                                <h4 class="font-bold text-meraki-dark text-sm sm:text-base uppercase">Pedicura Spa Profunda</h4>
+                                <p class="text-xs text-meraki-muted">Exfoliación, remoción de asperezas y masaje relajante</p>
+                            </div>
+                            <span class="font-serif font-bold text-meraki-dark text-xl sm:text-2xl">$14</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 text-center">
+                        <button onclick="selectServiceForBooking('Uñas / Manicura')" class="btn-meraki px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-wider">
+                            Reservar Cita de Uñas
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PHOTO GALLERY GRID -->
+    <section id="galeria" class="py-20 bg-meraki-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs uppercase tracking-widest text-meraki-muted font-bold block mb-1">Nuestros Trabajos</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-meraki-dark">Galería de Resultados</h2>
+                <p class="text-xs text-meraki-muted mt-2">Síguenos en Instagram <a href="https://instagram.com/Merakispa_gc" target="_blank" class="underline font-bold text-meraki-dark">@Merakispa_gc</a> para ver más trasformaciones diarias.</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="relative group overflow-hidden rounded-2xl shadow-sm aspect-square">
+                    <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80" alt="Cuidado Capilar" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-meraki-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="text-white text-xs uppercase tracking-widest font-bold">Secados & Hidratación</span>
+                    </div>
+                </div>
+
+                <div class="relative group overflow-hidden rounded-2xl shadow-sm aspect-square">
+                    <img src="https://images.unsplash.com/photo-1583001931096-959e9a1a6223?auto=format&fit=crop&w=600&q=80" alt="Pestañas y Cejas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-meraki-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="text-white text-xs uppercase tracking-widest font-bold">Pestañas Punto a Punto</span>
+                    </div>
+                </div>
+
+                <div class="relative group overflow-hidden rounded-2xl shadow-sm aspect-square">
+                    <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=600&q=80" alt="Manicura Semipermanente" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-meraki-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="text-white text-xs uppercase tracking-widest font-bold">Manicura & Nail Art</span>
+                    </div>
+                </div>
+
+                <div class="relative group overflow-hidden rounded-2xl shadow-sm aspect-square">
+                    <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=600&q=80" alt="Alisados Keramix" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-meraki-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="text-white text-xs uppercase tracking-widest font-bold">Alisados & Nanoplastia</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE APPOINTMENT RESERVATION SECTION -->
+    <section id="reserva" class="py-20 bg-meraki-card border-t border-meraki-soft">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <div class="bg-meraki-bg p-8 sm:p-12 rounded-3xl border border-meraki-soft shadow-lg relative">
+                
+                <div class="text-center max-w-xl mx-auto mb-10">
+                    <span class="text-xs uppercase tracking-widest text-meraki-muted font-bold block mb-1">Cita Directa</span>
+                    <h2 class="font-serif text-3xl font-bold text-meraki-dark">Reserva tu Experiencia Meraki</h2>
+                    <p class="text-xs text-meraki-muted mt-2">Completa el formulario y te confirmaremos la cita de inmediato vía WhatsApp al 0416-7885454.</p>
+                </div>
+
+                <form id="booking-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider font-bold text-meraki-dark mb-2">Tu Nombre Completo *</label>
+                            <input type="text" id="form-name" required placeholder="Ej. María García" class="w-full px-4 py-3 rounded-xl border border-meraki-soft bg-white text-meraki-dark text-sm focus:outline-none focus:border-meraki-dark">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider font-bold text-meraki-dark mb-2">Teléfono / WhatsApp *</label>
+                            <input type="tel" id="form-phone" required placeholder="Ej. 0412-1234567" class="w-full px-4 py-3 rounded-xl border border-meraki-soft bg-white text-meraki-dark text-sm focus:outline-none focus:border-meraki-dark">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider font-bold text-meraki-dark mb-2">Servicio Principal *</label>
+                            <select id="form-service" required class="w-full px-4 py-3 rounded-xl border border-meraki-soft bg-white text-meraki-dark text-sm focus:outline-none focus:border-meraki-dark">
+                                <option value="">Selecciona un servicio</option>
+                                <option value="Promo Cabello Corto ($15)">Promo Cabello Corto ($15)</option>
+                                <option value="Promo Cabello Mediano ($18)">Promo Cabello Mediano ($18)</option>
+                                <option value="Promo Cabello Largo ($22)">Promo Cabello Largo ($22)</option>
+                                <option value="Promo Cabello Extra Largo ($25)">Promo Cabello Extra Largo ($25)</option>
+                                <option value="Secado + Planchado + Lavado ($8-$18)">Secado + Planchado + Lavado ($8-$18)</option>
+                                <option value="Alisados Keramix / Nanoplastia ($25+)">Alisados Keramix / Nanoplastia ($25+)</option>
+                                <option value="Pestañas Punto a Punto ($12)">Pestañas Punto a Punto ($12)</option>
+                                <option value="Pestañas Pelo a Pelo ($20)">Pestañas Pelo a Pelo ($20)</option>
+                                <option value="Manicura Semipermanente ($12)">Manicura Semipermanente ($12)</option>
+                                <option value="Sistemas Acrílicos ($20+)">Sistemas Acrílicos ($20+)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider font-bold text-meraki-dark mb-2">Fecha Deseada *</label>
+                            <input type="date" id="form-date" required class="w-full px-4 py-3 rounded-xl border border-meraki-soft bg-white text-meraki-dark text-sm focus:outline-none focus:border-meraki-dark">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider font-bold text-meraki-dark mb-2">Hora Preferida *</label>
+                            <select id="form-time" required class="w-full px-4 py-3 rounded-xl border border-meraki-soft bg-white text-meraki-dark text-sm focus:outline-none focus:border-meraki-dark">
+                                <option value="09:00 AM">09:00 AM</option>
+                                <option value="11:00 AM">11:00 AM</option>
+                                <option value="02:00 PM">02:00 PM</option>
+                                <option value="04:00 PM">04:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider font-bold text-meraki-dark mb-2">Notas o Largo de Cabello</label>
+                        <textarea id="form-notes" rows="2" placeholder="Detalles adicionales..." class="w-full px-4 py-3 rounded-xl border border-meraki-soft bg-white text-meraki-dark text-sm focus:outline-none focus:border-meraki-dark"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full btn-whatsapp py-4 rounded-xl text-xs font-bold uppercase tracking-widest flex items-center justify-center space-x-2">
+                        <i class="fa-brands fa-whatsapp text-xl"></i>
+                        <span>Confirmar Reserva por WhatsApp (0416-7885454)</span>
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contacto" class="bg-meraki-dark text-meraki-bg pt-16 pb-8 border-t border-meraki-soft">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+                
+                <div>
+                    <span class="font-serif text-3xl font-bold tracking-[0.2em] uppercase text-meraki-bg block mb-1">MERAKI</span>
+                    <span class="text-xs uppercase tracking-[0.4em] text-meraki-rose font-bold block mb-4">S P A</span>
+                    <p class="text-xs text-meraki-soft/70 font-light leading-relaxed">
+                        Hacer las cosas con amor, pasión y alma. Te esperamos para renovar tu energía e imagen con la mejor atención.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-serif text-lg font-bold text-white mb-4 uppercase tracking-wider">Contacto Directo</h4>
+                    <ul class="space-y-3 text-xs text-meraki-soft/80">
+                        <li class="flex items-center space-x-3">
+                            <i class="fa-brands fa-whatsapp text-green-400 text-base"></i>
+                            <span>WhatsApp: <strong>0416-7885454</strong></span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fa-brands fa-instagram text-pink-400 text-base"></i>
+                            <span>Instagram: <strong>@Merakispa_gc</strong></span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-serif text-lg font-bold text-white mb-4 uppercase tracking-wider">Horario de Atención</h4>
+                    <p class="text-xs text-meraki-soft/80 leading-relaxed font-light">
+                        Lunes a Sábado: 8:30 AM - 6:00 PM<br>
+                        Previa Cita por WhatsApp.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="border-t border-white/10 pt-6 text-center text-xs text-meraki-soft/50 font-light">
+                <p>&copy; <span id="year"></span> MERAKI SPA. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile Nav toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        document.querySelectorAll('.mobile-link').forEach(l => {
+            l.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // Tab category switcher
+        function switchCategory(cat) {
+            document.querySelectorAll('.category-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.cat-tab').forEach(b => {
+                b.classList.remove('bg-meraki-dark', 'text-meraki-bg', 'shadow-sm');
+                b.classList.add('text-meraki-muted');
+            });
+
+            document.getElementById(`cat-${cat}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`btn-tab-${cat}`);
+            activeBtn.classList.add('bg-meraki-dark', 'text-meraki-bg', 'shadow-sm');
+            activeBtn.classList.remove('text-meraki-muted');
+        }
+
+        // Quick select service into booking section
+        function selectServiceForBooking(serviceName) {
+            const selectEl = document.getElementById('form-service');
+            for (let i = 0; i < selectEl.options.length; i++) {
+                if (selectEl.options[i].text.includes(serviceName)) {
+                    selectEl.selectedIndex = i;
+                    break;
+                }
+            }
+            document.getElementById('reserva').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function openBookingModal() {
+            document.getElementById('reserva').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Form Submit via WhatsApp 0416-7885454
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('form-name').value;
+            const phone = document.getElementById('form-phone').value;
+            const service = document.getElementById('form-service').value;
+            const date = document.getElementById('form-date').value;
+            const time = document.getElementById('form-time').value;
+            const notes = document.getElementById('form-notes').value;
+
+            let msg = `Hola *MERAKI SPA*, deseo agendar una cita:\n\n`;
+            msg += `👤 *Nombre:* ${name}\n`;
+            msg += `📞 *Teléfono:* ${phone}\n`;
+            msg += `✨ *Servicio:* ${service}\n`;
+            msg += `📅 *Fecha:* ${date}\n`;
+            msg += `⏰ *Hora:* ${time}\n`;
+            if (notes) msg += `📝 *Notas:* ${notes}\n`;
+
+            const url = `https://wa.me/584167885454?text=${encodeURIComponent(msg)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
